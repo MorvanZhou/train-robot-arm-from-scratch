@@ -8,6 +8,7 @@ from part4.rl import DDPG
 
 MAX_EPISODES = 700
 MAX_EP_STEPS = 200
+ON_TRAIN = True
 
 # set env
 env = ArmEnv()
@@ -18,40 +19,51 @@ a_bound = env.action_bound
 # set RL method (continuous)
 rl = DDPG(a_dim, s_dim, a_bound)
 
-# start training
-for i in range(MAX_EPISODES):
-    s = env.reset()
-    for j in range(MAX_EP_STEPS):
-        env.render()
 
-        a = rl.choose_action(s)
+def train():
+    # start training
+    for i in range(MAX_EPISODES):
+        s = env.reset()
+        ep_r = 0.
+        for j in range(MAX_EP_STEPS):
+            # env.render()
 
-        s_, r, done = env.step(a)
+            a = rl.choose_action(s)
 
-        rl.store_transition(s, a, r, s_)
+            s_, r, done = env.step(a)
 
-        if rl.memory_full:
-            # start to learn once has fulfilled the memory
-            rl.learn()
+            rl.store_transition(s, a, r, s_)
 
-        s = s_
-        if done or j == MAX_EP_STEPS-1:
-            print('Ep: %i | %s' % (i, '---' if not done else 'done'))
-            break
+            ep_r += r
+            if rl.memory_full:
+                # start to learn once has fulfilled the memory
+                rl.learn()
 
-# summary:
-"""
-env should have at least:
-env.reset()
-env.render()
-env.step()
+            s = s_
+            if done or j == MAX_EP_STEPS-1:
+                print('Ep: %i | %s | ep_r: %.1f' % (i, '---' if not done else 'done', ep_r))
+                break
+    rl.save()
 
-while RL should have at least:
-rl.choose_action()
-rl.store_transition()
-rl.learn()
-rl.memory_full
-"""
+
+def eval():
+    rl.restore()
+    env.render()
+    env.viewer.set_vsync(True)
+    while True:
+        s = env.reset()
+        for _ in range(200):
+            env.render()
+            a = rl.choose_action(s)
+            s, r, done = env.step(a)
+            if done:
+                break
+
+
+if ON_TRAIN:
+    train()
+else:
+    eval()
 
 
 

@@ -93,4 +93,11 @@ class DDPG(object):
             net = tf.nn.relu(tf.matmul(s, w1_s) + tf.matmul(a, w1_a) + b1)
             return tf.layers.dense(net, 1, trainable=trainable)  # Q(s,a)
 
+    def save(self):
+        saver = tf.train.Saver()
+        saver.save(self.sess, 'params', write_meta_graph=False)
+
+    def restore(self):
+        saver = tf.train.Saver()
+        saver.restore(self.sess, 'params')
 
