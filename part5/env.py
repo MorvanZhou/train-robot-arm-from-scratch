@@ -51,7 +51,6 @@ class ArmEnv(object):
     def reset(self):
         self.arm_info['r'] = 2 * np.pi * np.random.rand(2)
         self.on_goal = 0
-        # self.goal['x'], self.goal['y'] = np.random.rand(2)*300 + 50
         (a1l, a2l) = self.arm_info['l']  # radius, arm length
         (a1r, a2r) = self.arm_info['r']  # radian, angle
         a1xy = np.array([200., 200.])  # a1 start (x0, y0)

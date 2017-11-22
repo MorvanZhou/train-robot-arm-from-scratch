@@ -3,9 +3,9 @@ import numpy as np
 
 #####################  hyper parameters  ####################
 
-LR_A = 0.0002    # learning rate for actor
-LR_C = 0.0004    # learning rate for critic
-GAMMA = 0.95     # reward discount
+LR_A = 0.001    # learning rate for actor
+LR_C = 0.001    # learning rate for critic
+GAMMA = 0.9     # reward discount
 TAU = 0.01      # soft replacement
 MEMORY_CAPACITY = 10000
 BATCH_SIZE = 32

@@ -1,7 +1,6 @@
 """
 Make it more robust.
 Stop episode once the finger stop at the final position for 50 steps.
-Randomly set the goal position.
 Feature & reward engineering.
 """
 from part5.env import ArmEnv
