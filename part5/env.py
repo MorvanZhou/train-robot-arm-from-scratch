@@ -19,7 +19,6 @@ class ArmEnv(object):
 
     def step(self, action):
         done = False
-        r = 0.
         action = np.clip(action, *self.action_bound)
         self.arm_info['r'] += action * self.dt
         self.arm_info['r'] %= np.pi * 2    # normalize
@@ -32,12 +31,12 @@ class ArmEnv(object):
         # normalize features
         dist1 = [(self.goal['x'] - a1xy_[0]) / 400, (self.goal['y'] - a1xy_[1]) / 400]
         dist2 = [(self.goal['x'] - finger[0]) / 400, (self.goal['y'] - finger[1]) / 400]
-        r -= np.sqrt(dist2[0]**2+dist2[1]**2)
+        r = -np.sqrt(dist2[0]**2+dist2[1]**2)
 
         # done and reward
         if self.goal['x'] - self.goal['l']/2 < finger[0] < self.goal['x'] + self.goal['l']/2:
             if self.goal['y'] - self.goal['l']/2 < finger[1] < self.goal['y'] + self.goal['l']/2:
-                r = 1.
+                r += 1.
                 self.on_goal += 1
                 if self.on_goal > 50:
                     done = True
@@ -80,7 +79,6 @@ class Viewer(pyglet.window.Window):
         super(Viewer, self).__init__(width=400, height=400, resizable=False, caption='Arm', vsync=False)
         pyglet.gl.glClearColor(1, 1, 1, 1)
         self.arm_info = arm_info
-        self.goal_info = goal
         self.center_coord = np.array([200, 200])
 
         self.batch = pyglet.graphics.Batch()    # display whole batch at once
@@ -136,11 +134,6 @@ class Viewer(pyglet.window.Window):
 
         self.arm1.vertices = np.concatenate((xy01, xy02, xy11, xy12))
         self.arm2.vertices = np.concatenate((xy11_, xy12_, xy21, xy22))
-        self.goal.vertices = [
-            self.goal_info['x'] - self.goal_info['l'] / 2, self.goal_info['y'] - self.goal_info['l'] / 2,
-            self.goal_info['x'] - self.goal_info['l'] / 2, self.goal_info['y'] + self.goal_info['l'] / 2,
-            self.goal_info['x'] + self.goal_info['l'] / 2, self.goal_info['y'] + self.goal_info['l'] / 2,
-            self.goal_info['x'] + self.goal_info['l'] / 2, self.goal_info['y'] - self.goal_info['l'] / 2]
 
 
 if __name__ == '__main__':

@@ -6,7 +6,7 @@ please change the env.py and rl.py correspondingly.
 from part4.env import ArmEnv
 from part4.rl import DDPG
 
-MAX_EPISODES = 700
+MAX_EPISODES = 500
 MAX_EP_STEPS = 200
 ON_TRAIN = True
 
@@ -26,7 +26,7 @@ def train():
         s = env.reset()
         ep_r = 0.
         for j in range(MAX_EP_STEPS):
-            # env.render()
+            env.render()
 
             a = rl.choose_action(s)
 

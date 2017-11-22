@@ -4,7 +4,7 @@ import pyglet
 
 class ArmEnv(object):
     viewer = None
-    dt = 0.1    # refresh rate
+    dt = .1    # refresh rate
     action_bound = [-1, 1]
     goal = {'x': 100., 'y': 100., 'l': 40}
     state_dim = 2
@@ -13,8 +13,8 @@ class ArmEnv(object):
     def __init__(self):
         self.arm_info = np.zeros(
             2, dtype=[('l', np.float32), ('r', np.float32)])
-        self.arm_info['l'] = 100
-        self.arm_info['r'] = np.pi/6
+        self.arm_info['l'] = 100        # 2 arms length
+        self.arm_info['r'] = np.pi/6    # 2 angles information
 
     def step(self, action):
         done = False

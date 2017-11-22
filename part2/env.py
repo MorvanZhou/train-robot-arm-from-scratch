@@ -6,9 +6,7 @@ class ArmEnv(object):
     viewer = None
 
     def __init__(self):
-        self.arm_info = np.zeros(
-            2, dtype=[('l', np.float32), ('r', np.float32)])
-        self.arm_info['l'] = 100
+        pass
 
     def step(self, action):
         pass
@@ -18,22 +16,17 @@ class ArmEnv(object):
 
     def render(self):
         if self.viewer is None:
-            self.viewer = Viewer(self.arm_info)
+            self.viewer = Viewer()
         self.viewer.render()
-
-    def sample_action(self):
-        return None
 
 
 class Viewer(pyglet.window.Window):
     bar_thc = 5
 
-    def __init__(self, arm_info):
+    def __init__(self):
         # vsync=False to not use the monitor FPS, we can speed up training
         super(Viewer, self).__init__(width=400, height=400, resizable=False, caption='Arm', vsync=False)
         pyglet.gl.glClearColor(1, 1, 1, 1)
-        self.arm_info = arm_info
-        self.center_coord = np.array([200, 200])
 
         self.batch = pyglet.graphics.Batch()    # display whole batch at once
         self.point = self.batch.add(
@@ -76,4 +69,3 @@ if __name__ == '__main__':
     env = ArmEnv()
     while True:
         env.render()
-        env.step(env.sample_action())

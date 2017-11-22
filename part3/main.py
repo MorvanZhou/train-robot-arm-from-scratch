@@ -1,8 +1,8 @@
 """
 Complete the env.py
 """
-from part1.env import ArmEnv
-from part1.rl import DDPG
+from part3.env import ArmEnv
+from part3.rl import DDPG
 
 MAX_EPISODES = 500
 MAX_EP_STEPS = 200
@@ -26,7 +26,7 @@ for i in range(MAX_EPISODES):
 
         s_, r, done = env.step(a)
 
-        rl.store_transition(s, a, r / 10, s_)
+        rl.store_transition(s, a, r, s_)
 
         if rl.memory_full:
             # start to learn once has fulfilled the memory

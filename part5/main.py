@@ -8,7 +8,7 @@ from part5.rl import DDPG
 
 MAX_EPISODES = 500
 MAX_EP_STEPS = 200
-ON_TRAIN = 1
+ON_TRAIN = False
 
 # set env
 env = ArmEnv()
@@ -16,7 +16,7 @@ s_dim = env.state_dim
 a_dim = env.action_dim
 a_bound = env.action_bound
 
-# set RL method
+# set RL method (continuous)
 rl = DDPG(a_dim, s_dim, a_bound)
 
 
@@ -26,7 +26,7 @@ def train():
         s = env.reset()
         ep_r = 0.
         for j in range(MAX_EP_STEPS):
-            # env.render()
+            env.render()
 
             a = rl.choose_action(s)
 
@@ -64,3 +64,6 @@ if ON_TRAIN:
     train()
 else:
     eval()
+
+
+

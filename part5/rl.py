@@ -100,3 +100,4 @@ class DDPG(object):
     def restore(self):
         saver = tf.train.Saver()
         saver.restore(self.sess, 'params')
+

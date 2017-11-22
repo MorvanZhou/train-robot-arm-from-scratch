@@ -26,7 +26,7 @@ for i in range(MAX_EPISODES):
 
         s_, r, done = env.step(a)
 
-        rl.store_transition(s, a, r / 10, s_)
+        rl.store_transition(s, a, r, s_)
 
         if rl.memory_full:
             # start to learn once has fulfilled the memory
