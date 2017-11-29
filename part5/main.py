@@ -19,7 +19,7 @@ a_bound = env.action_bound
 # set RL method (continuous)
 rl = DDPG(a_dim, s_dim, a_bound)
 
-
+steps = []
 def train():
     # start training
     for i in range(MAX_EPISODES):
@@ -41,7 +41,7 @@ def train():
 
             s = s_
             if done or j == MAX_EP_STEPS-1:
-                print('Ep: %i | %s | ep_r: %.1f' % (i, '---' if not done else 'done', ep_r))
+                print('Ep: %i | %s | ep_r: %.1f | step: %i' % (i, '---' if not done else 'done', ep_r, j))
                 break
     rl.save()
 
