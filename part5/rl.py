@@ -19,7 +19,7 @@ class DDPG(object):
         self.sess = tf.Session()
         self.a_replace_counter, self.c_replace_counter = 0, 0
 
-        self.a_dim, self.s_dim, self.a_bound = a_dim, s_dim, a_bound,
+        self.a_dim, self.s_dim, self.a_bound = a_dim, s_dim, a_bound[1]
         self.S = tf.placeholder(tf.float32, [None, s_dim], 's')
         self.S_ = tf.placeholder(tf.float32, [None, s_dim], 's_')
         self.R = tf.placeholder(tf.float32, [None, 1], 'r')
