@@ -41,7 +41,7 @@ def train():
 
             s = s_
             if done or j == MAX_EP_STEPS-1:
-                print('Ep: %i | %s | ep_r: %.1f' % (i, '---' if not done else 'done', ep_r))
+                print('Ep: %i | %s | ep_r: %.1f | steps: %i' % (i, '---' if not done else 'done', ep_r, j))
                 break
     rl.save()
 
