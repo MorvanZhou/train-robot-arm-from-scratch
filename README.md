@@ -16,4 +16,4 @@
 * numpy
 
 This Reinforcement Learning practice code has its Chinese tutorial on [莫烦Python](https://morvanzhou.github.io/tutorials/machine-learning/ML-practice/RL-build-arm-from-scratch1/).
-You can view more tutorials on [this page](https://morvanzhou.github.io/) or know about me on [here](https://morvanzhou.github.io/about/).
+You can view more tutorials on [this page](https://morvanzhou.github.io/) or know more about me on [here](https://morvanzhou.github.io/about/).
