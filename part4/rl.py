@@ -95,9 +95,9 @@ class DDPG(object):
 
     def save(self):
         saver = tf.train.Saver()
-        saver.save(self.sess, 'params', write_meta_graph=False)
+        saver.save(self.sess, './params', write_meta_graph=False)
 
     def restore(self):
         saver = tf.train.Saver()
-        saver.restore(self.sess, 'params')
+        saver.restore(self.sess, './params')
 
