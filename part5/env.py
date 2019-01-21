@@ -34,12 +34,12 @@ class ArmEnv(object):
         r = -np.sqrt(dist2[0]**2+dist2[1]**2)
 
         # done and reward
-        if self.goal['x'] - self.goal['l']/2 < finger[0] < self.goal['x'] + self.goal['l']/2:
-            if self.goal['y'] - self.goal['l']/2 < finger[1] < self.goal['y'] + self.goal['l']/2:
-                r += 1.
-                self.on_goal += 1
-                if self.on_goal > 50:
-                    done = True
+        if (self.goal['x'] - self.goal['l']/2 < finger[0] < self.goal['x'] + self.goal['l']/2
+        ) and (self.goal['y'] - self.goal['l']/2 < finger[1] < self.goal['y'] + self.goal['l']/2):
+            r += 1.
+            self.on_goal += 1
+            if self.on_goal > 50:
+                done = True
         else:
             self.on_goal = 0
 
